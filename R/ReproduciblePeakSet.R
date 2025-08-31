@@ -789,8 +789,8 @@ addReproduciblePeakSet <- function(
 	run <- system2(pathToMacs2, cmd, wait=TRUE, stdout=NULL, stderr=NULL)
 
 	#Read Summits!
-	out <- data.table::fread(narrowPeaksFile, select = c(1,2,5,7,10))
-	out <- GRanges(out$V1, IRanges(out$V2 + out$V10 + 1, out$V2 + out$V10 + 1), score = out$V5/10, signalValue = out$V7)
+	out <- data.table::fread(narrowPeaksFile, select = c(1,2,3,4,5,7,8,9,10))
+	out <- GRanges(out$V1, IRanges(out$V2 + out$V10 + 1, out$V2 + out$V10 + 1), peak_start = out$V2, peak_end = out$V3, name = out$V4, score = out$V5/10, signalValue = out$V7, pValue = out$V8, qValue = out$V9, peak = out$V10)
 
 	#Remove Files
 	r2 <- suppressWarnings(file.remove(summitsFile, narrowPeaksFile, xlsFile))
